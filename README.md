@@ -7,7 +7,7 @@ custom Node.js build.
 
 ## Hardware
 
-![Apple TV 3 connected by Ethernet and HDMI](docs/images/apple-tv3-hardware.jpg)
+<img src="docs/images/apple-tv3-hardware.jpg" alt="Apple TV 3 connected by Ethernet and HDMI" width="50%">
 
 *The tested Apple TV 3, connected by Ethernet and HDMI.*
 
