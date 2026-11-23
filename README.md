@@ -71,6 +71,34 @@ A1427 as supported until it passes all of these checks on real hardware:
 5. Validate the optional Tailscale port separately; n8n compatibility does
    not prove that its network extension and routing behavior are stable.
 
+## Jailbreak instructions
+
+This repository starts **after** the Apple TV has been jailbroken; it does not
+contain a jailbreak or modified Apple firmware. Instructions and downloads for
+the supported 8.4.x jailbreak path are maintained by the upstream
+[Blackb0x project](https://github.com/NSSpiral/Blackb0x):
+
+- read the [Blackb0x instructions](https://github.com/NSSpiral/Blackb0x#steps-to-jailbreak);
+- obtain the application from its
+  [official releases page](https://github.com/NSSpiral/Blackb0x/releases);
+- for **A1469 / `AppleTV3,2`**, follow the normal Blackb0x Apple TV 3 process;
+- for **A1427 / `AppleTV3,1`**, Blackb0x additionally requires an Arduino and
+  [checkm8-A5](https://github.com/synackuk/checkm8-a5) preparation before its
+  normal steps. This n8n bundle remains unverified on that model.
+
+Follow the upstream instructions rather than a copied version in a blog post,
+because tool requirements and download links can change. At the time of this
+research, Blackb0x instructs users to connect both Micro-USB and power, enter
+DFU mode when prompted, keep the Apple TV connected to the internet for its
+first boot, and not interrupt that first boot until setup has completed.
+
+Jailbreaking and restoring can erase the device or leave it temporarily
+unbootable. Confirm the case model number first, use only the matching firmware
+and procedure, and accept the risk before continuing. After the jailbreak,
+confirm that SSH works and change the default root password before installing
+n8n. Jailbreaking may also affect warranty, support, and device security; check
+the rules that apply in your country.
+
 Use this binary bundle only when all of these are true:
 
 - `uname -a` contains `AppleTV3,2`;
