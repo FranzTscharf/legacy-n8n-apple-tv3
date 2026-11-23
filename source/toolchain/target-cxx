@@ -1,0 +1,13 @@
+#!/bin/bash
+args=()
+skip=0
+for arg in "$@"; do
+  if [ "$skip" = 1 ]; then skip=0; continue; fi
+  if [ "$arg" = "-arch" ]; then skip=1; continue; fi
+  case "$arg" in
+    -mmacosx-version-min=*) continue ;;
+  esac
+  args+=("$arg")
+done
+exec /usr/bin/xcrun --sdk iphoneos clang++ -std=gnu++14 -arch armv7 \
+  -D__ARM_EABI__=1 "${args[@]}"

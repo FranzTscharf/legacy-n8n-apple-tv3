@@ -1,0 +1,55 @@
+#!/bin/sh
+
+TS_BIN=/var/local/tailscale/bin/tailscale
+TS_SOCKET=/var/run/tailscale/tailscaled.sock
+TS_PLIST=/Library/LaunchDaemons/com.tailscale.tailscaled.plist
+
+case "${1:-help}" in
+  status)
+    exec "$TS_BIN" --socket="$TS_SOCKET" status --json
+    ;;
+  login|up)
+    exec "$TS_BIN" --socket="$TS_SOCKET" up --hostname=n8n --accept-dns=false
+    ;;
+  reauth)
+    exec "$TS_BIN" --socket="$TS_SOCKET" up --force-reauth --hostname=n8n --accept-dns=false
+    ;;
+  authkey)
+    if [ -z "$2" ]; then
+      echo "Usage: tailscale-device authkey TS_AUTH_KEY" >&2
+      exit 2
+    fi
+    exec "$TS_BIN" --socket="$TS_SOCKET" up --authkey="$2" --hostname=n8n --accept-dns=false
+    ;;
+  down)
+    exec "$TS_BIN" --socket="$TS_SOCKET" down
+    ;;
+  netcheck)
+    exec "$TS_BIN" --socket="$TS_SOCKET" netcheck
+    ;;
+  restart)
+    launchctl unload "$TS_PLIST" 2>/dev/null || true
+    exec launchctl load "$TS_PLIST"
+    ;;
+  logs)
+    exec tail -f /var/local/tailscale/tailscaled.log /var/local/tailscale/tailscaled-error.log
+    ;;
+  help|--help|-h)
+    echo "Usage: tailscale-device COMMAND"
+    echo ""
+    echo "Commands:"
+    echo "  status          Show JSON connection status and assigned addresses"
+    echo "  login | up      Print a browser URL and connect this device"
+    echo "  reauth          Force a fresh device authorization"
+    echo "  authkey KEY     Connect with a Tailscale auth key (avoid shell history)"
+    echo "  down            Disconnect without deleting saved identity"
+    echo "  netcheck        Test UDP, NAT, and DERP reachability"
+    echo "  restart         Restart the persistent daemon"
+    echo "  logs            Follow daemon logs"
+    ;;
+  *)
+    echo "Unknown command: $1" >&2
+    echo "Run: tailscale-device help" >&2
+    exit 2
+    ;;
+esac

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.n8n.proxy.http</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/socat</string>
+        <string>TCP4-LISTEN:80,bind=0.0.0.0,reuseaddr,fork,backlog=128</string>
+        <string>TCP4:127.0.0.1:5678</string>
+    </array>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>_MSSafeMode</key>
+        <string>1</string>
+        <key>DYLD_INSERT_LIBRARIES</key>
+        <string></string>
+    </dict>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+    <key>StandardOutPath</key>
+    <string>/var/local/n8n-data/proxy-http.log</string>
+    <key>StandardErrorPath</key>
+    <string>/var/local/n8n-data/proxy-http-error.log</string>
+</dict>
+</plist>

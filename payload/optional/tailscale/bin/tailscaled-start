@@ -1,0 +1,6 @@
+#!/bin/sh
+mkdir -p /var/run/tailscale /var/local/tailscale/state
+exec /var/local/tailscale/bin/tailscaled \
+  --state=/var/local/tailscale/state/tailscaled.state \
+  --socket=/var/run/tailscale/tailscaled.sock \
+  --tun=utun0

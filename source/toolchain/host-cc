@@ -1,0 +1,14 @@
+#!/bin/bash
+args=()
+defs=()
+skip=0
+for arg in "$@"; do
+  if [ "$skip" = 1 ]; then skip=0; continue; fi
+  if [ "$arg" = "-arch" ]; then skip=1; continue; fi
+  args+=("$arg")
+  case "$arg" in
+    *obj.host/torque*|*deps/v8/src/torque/*) defs=(-DV8_COMPRESS_POINTERS -DV8_31BIT_SMIS_ON_64BIT_ARCH) ;;
+    *obj.host/v8*) defs=(-DNODE_IOS_CROSS_HOST_TOOL) ;;
+  esac
+done
+exec /usr/bin/xcrun --sdk macosx clang -arch arm64 "${defs[@]}" "${args[@]}"

@@ -1,0 +1,3 @@
+#!/bin/sh
+export PYTHONHOME=/var/local/python3
+exec /var/local/python3/bin/python3.7 "$@"

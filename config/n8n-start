@@ -1,0 +1,52 @@
+#!/bin/sh
+
+export HOME=/var/root
+export PATH=/var/local/n8n-runtime/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export NODE_PATH=/var/local/n8n-community/node_modules:/var/local/n8n-runtime/node_modules
+export N8N_USER_FOLDER=/var/local/n8n-data
+export N8N_CUSTOM_EXTENSIONS=/var/local/n8n-community/extensions
+
+# Optional site-specific overrides. Keep credentials out of this file.
+if [ -f /var/local/n8n-config/env.sh ]; then
+  . /var/local/n8n-config/env.sh
+fi
+
+N8N_DEVICE_HOST=${N8N_DEVICE_HOST:-n8n.local}
+N8N_PUBLIC_PROTOCOL=${N8N_PUBLIC_PROTOCOL:-http}
+N8N_PUBLIC_URL=${N8N_PUBLIC_URL:-${N8N_PUBLIC_PROTOCOL}://${N8N_DEVICE_HOST}:5678/}
+export N8N_LISTEN_ADDRESS=0.0.0.0
+export N8N_HOST="$N8N_DEVICE_HOST"
+export N8N_PORT=5678
+export N8N_PROTOCOL=http
+export WEBHOOK_URL="$N8N_PUBLIC_URL"
+export N8N_DIAGNOSTICS_ENABLED=false
+export EXECUTIONS_PROCESS=main
+
+# The Gmail workflow polls frequently. Successful no-op checks do not need a
+# permanent execution record. Keep failures for one day and prune them every
+# five minutes so a revoked API token cannot fill the device again.
+export EXECUTIONS_DATA_SAVE_ON_SUCCESS=none
+export EXECUTIONS_DATA_SAVE_ON_ERROR=all
+export EXECUTIONS_DATA_SAVE_ON_PROGRESS=false
+export EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS=false
+export EXECUTIONS_DATA_PRUNE=true
+export EXECUTIONS_DATA_MAX_AGE=24
+export EXECUTIONS_DATA_PRUNE_TIMEOUT=300
+
+# Keep jailbreak tweak injection out of the custom V8 process. Substrate was
+# present only in launchd-started Node crashes, not in stable foreground runs.
+export _MSSafeMode=1
+unset DYLD_INSERT_LIBRARIES
+
+cd /var/local/n8n-runtime || exit 1
+# V8's background/concurrent GC is unstable on this legacy ARMv7/iOS 8
+# target under the editor's large node-catalog allocations. Keep collection
+# single-threaded so the main isolate cannot race a background marker/sweeper.
+exec /var/local/n8n-runtime/bin/node \
+  --max-old-space-size=256 \
+  --single-threaded-gc \
+  --no-concurrent-marking \
+  --no-concurrent-sweeping \
+  --no-parallel-marking \
+  --no-parallel-scavenge \
+  /var/local/n8n-runtime/node_modules/n8n/bin/n8n start

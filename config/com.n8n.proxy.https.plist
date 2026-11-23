@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.n8n.proxy.https</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/socat</string>
+        <string>OPENSSL-LISTEN:443,bind=DEVICE_LAN_IP,reuseaddr,fork,backlog=128,cert=/var/local/n8n-proxy/n8n.local.crt,key=/var/local/n8n-proxy/n8n.local.key,verify=0</string>
+        <string>TCP4:127.0.0.1:5678</string>
+    </array>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>_MSSafeMode</key>
+        <string>1</string>
+        <key>DYLD_INSERT_LIBRARIES</key>
+        <string></string>
+    </dict>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+    <key>StandardOutPath</key>
+    <string>/var/local/n8n-data/proxy-https.log</string>
+    <key>StandardErrorPath</key>
+    <string>/var/local/n8n-data/proxy-https-error.log</string>
+</dict>
+</plist>

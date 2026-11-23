@@ -1,0 +1,83 @@
+{
+  "name": "AI Provider Nodes - ChatGPT Claude Gemini",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Manual Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [180, 320]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            { "name": "prompt", "value": "Write a concise professional confirmation that the request was received." }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Example Prompt",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [410, 320]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "prompt": "={{$json[\"prompt\"]}}",
+        "systemInstructions": "Reply concisely and professionally.",
+        "outputFormat": "text",
+        "maxOutputTokens": 300,
+        "temperature": 0.2,
+        "includeRawResponse": false
+      },
+      "name": "ChatGPT (Device)",
+      "type": "CUSTOM.chatGptDevice",
+      "typeVersion": 1,
+      "position": [680, 160]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-6",
+        "prompt": "={{$json[\"prompt\"]}}",
+        "systemInstructions": "Reply concisely and professionally.",
+        "outputFormat": "text",
+        "maxOutputTokens": 300,
+        "temperature": 0.2,
+        "includeRawResponse": false
+      },
+      "name": "Claude (Device)",
+      "type": "CUSTOM.claudeDevice",
+      "typeVersion": 1,
+      "position": [680, 320]
+    },
+    {
+      "parameters": {
+        "model": "gemini-3.5-flash",
+        "prompt": "={{$json[\"prompt\"]}}",
+        "systemInstructions": "Reply concisely and professionally.",
+        "outputFormat": "text",
+        "maxOutputTokens": 300,
+        "temperature": 0.2,
+        "includeRawResponse": false
+      },
+      "name": "Gemini (Device)",
+      "type": "CUSTOM.geminiDevice",
+      "typeVersion": 1,
+      "position": [680, 480]
+    }
+  ],
+  "connections": {
+    "Manual Start": { "main": [[{ "node": "Example Prompt", "type": "main", "index": 0 }]] },
+    "Example Prompt": {
+      "main": [[
+        { "node": "ChatGPT (Device)", "type": "main", "index": 0 },
+        { "node": "Claude (Device)", "type": "main", "index": 0 },
+        { "node": "Gemini (Device)", "type": "main", "index": 0 }
+      ]]
+    }
+  },
+  "settings": { "timezone": "Europe/Rome" }
+}
