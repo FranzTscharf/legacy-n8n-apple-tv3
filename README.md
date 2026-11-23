@@ -35,19 +35,41 @@ test strings.
 
 ## Supported target
 
-### Verified Apple model
+### Compatibility research
 
-| Model number printed on the case | Apple model | Hardware identifier | Support status |
-|---|---|---|---|
-| **A1469** | Apple TV (3rd generation, Rev A) | `AppleTV3,2` | **Verified and supported** |
-| A1427 | Apple TV (3rd generation) | `AppleTV3,1` | Not tested; the installer refuses this identifier |
-| Other Apple TV model numbers | Other generations/revisions | Varies | Not supported by this binary bundle |
+| Model number printed on the case | Hardware identifier | Research result |
+|---|---|---|
+| **A1469** — Apple TV (3rd generation, Rev A) | `AppleTV3,2` | **Verified and supported.** This is the device on which the complete bundle, SQLite addon, launchd service, and optional Tailscale port were tested. |
+| **A1427** — Apple TV (3rd generation) | `AppleTV3,1` | **Strong candidate, but unverified.** It is the only other model likely to run the ARMv7/iOS 8 runtime. The current installers deliberately refuse it until somebody completes the validation checklist below. |
+| A1378 — Apple TV (2nd generation) | `AppleTV2,1` | **Incompatible with this bundle.** Its final jailbreakable software generation predates iOS 8, while the included Node binary declares iPhone OS 8.0 as its minimum. It also has substantially less memory. |
+| A1625 — Apple TV HD (formerly 4th generation) | `AppleTV5,3` | **Incompatible.** This and later Apple TV models use the 64-bit tvOS platform; this bundle contains 32-bit ARMv7 Mach-O executables. |
+| A1842 and all later Apple TV 4K models | Varies | **Incompatible.** These are 64-bit tvOS devices, not the 32-bit ARMv7/iOS environment targeted here. |
+| A1218 — Apple TV (1st generation) | `AppleTV1,1` | **Incompatible.** It is an Intel-based platform, not ARMv7. |
 
-Apple lists A1427 and A1469 (Rev A) as the two third-generation model numbers
-in its [Apple TV identification guide](https://support.apple.com/en-us/101605).
-This project was built and verified specifically on **A1469 / `AppleTV3,2`**.
-Do not assume that a visually identical Apple TV or another model number is
-binary-compatible.
+Apple lists **A1427** and **A1469** as the two third-generation model numbers in
+its [Apple TV identification guide](https://support.apple.com/en-us/101605).
+The [Blackb0x jailbreak project](https://github.com/NSSpiral/Blackb0x) also
+lists both `AppleTV3,1` and `AppleTV3,2` on the 8.4.x jailbreak path. A1427 is
+more difficult to prepare: Blackb0x says that it first requires an Arduino and
+the checkm8-A5 procedure. The executables in this repository are generic
+ARMv7 Mach-O files, and the Node binary has a minimum deployment target of
+iPhone OS 8.0. Together, those facts make **A1427 / `AppleTV3,1` the only
+credible additional candidate** for this exact bundle.
+
+That conclusion is an engineering inference, not a successful device test.
+This project was built and verified specifically on **A1469 / `AppleTV3,2`**,
+and the model guards have intentionally not been weakened. Do not describe
+A1427 as supported until it passes all of these checks on real hardware:
+
+1. Confirm iPhone OS 8.4.x, a 32-bit kernel, working SSH, launchd, and `ldid`.
+2. Install into a disposable test device after changing the model guard in a
+   local copy; do not bypass it on a device containing valuable data.
+3. Run `./verify.sh`, create and execute a workflow, and confirm that workflow
+   data survives a reboot.
+4. Exercise the native SQLite addon and observe memory use during several
+   cold starts and at least a 30-minute workflow test.
+5. Validate the optional Tailscale port separately; n8n compatibility does
+   not prove that its network extension and routing behavior are stable.
 
 Use this binary bundle only when all of these are true:
 
