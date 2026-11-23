@@ -3,6 +3,14 @@
 This bundle reproduces the working n8n installation built for an Apple TV 3,2
 running jailbroken iPhone OS 8.4.4 (Darwin 14, 32-bit ARMv7).
 
+## Hardware
+
+![Apple TV 3 connected by Ethernet and HDMI](docs/images/apple-tv3-hardware.jpg)
+
+*The Apple TV 3 used for the legacy n8n appliance, connected by Ethernet and HDMI.*
+
+## n8n interface
+
 ![n8n 0.110.0 workflow editor running on the legacy Apple TV 3](docs/images/n8n-legacy-editor.png)
 
 *The legacy n8n workflow editor running locally on the Apple TV 3.*
