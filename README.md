@@ -204,6 +204,27 @@ deployments, use a current VPN gateway on supported hardware. Read
 [`docs/TAILSCALE-README.md`](docs/TAILSCALE-README.md) before enabling
 Tailscale.
 
+## Finder file access (optional)
+
+The tested device also provides an AFP share named `n8n Root Files`. On the
+same local network, open Finder, select **Go > Connect to Server**, and enter:
+
+```text
+afp://n8n.local
+```
+
+![Apple TV root filesystem mounted in macOS Finder](docs/images/finder-afp-root-access.png)
+
+*The Apple TV root filesystem mounted as `n8n Root Files` in macOS Finder.*
+
+This share exposes the complete root filesystem and requires the `root`
+account. Treat it as privileged administrative access. Keep AFP restricted to
+the local network. Do not forward it to the internet or expose it through
+broad Tailscale grants. AFP is an optional device service and is not installed
+by the main n8n installer. See
+[`docs/DEVICE-README.md`](docs/DEVICE-README.md#bonjour-and-finder-file-access)
+for its configuration and security notes.
+
 ## Important paths
 
 | Purpose | Path |

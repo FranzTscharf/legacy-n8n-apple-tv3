@@ -1,5 +1,5 @@
 c05dc1082ee014607a5ad571bbaa923a8e7abe192461a4435ad4d1bdb824bf42  ./MANIFEST.md
-e433de975d3b1b7566510b01afa6880b59aacdd8f99f38a6ca515b445674401e  ./README.md
+5b9fd872cd2dee2007b35d753d27bae16a99438d98d3ff4ff73da4ce7bd0e147  ./README.md
 a6f60cfcfd888fed58429669269f9addacb3a325dc1ea9a1d2ffa1d7230d5f52  ./SECURITY.md
 706a5a8db23b21daf6ae9a7586943208b8d74d03e5f90cc9a1f62b4fa6fb444a  ./THIRD-PARTY-NOTICES.md
 8065cb40e9692c93d0eb205e257158fcaa48931491802b085d2f928ed222621a  ./config/com.n8n.execution-prune.plist
@@ -19,6 +19,7 @@ b91fc4005d73f99cbffea3f32ebcfc44a2a7adc43184c0a8e3d5ce9d7c019f3b  ./docs/DEVICE-
 a9587de2eeb89c8122d5cb81f5af28dc1bedf2316edb193e7dd4e92f3811ac70  ./docs/PYTHON3-BUILD-NOTES.md
 5c5b6c3b3575904cd124d40c31bca94770d761870112e22bf2bce93be4b89851  ./docs/TAILSCALE-README.md
 06631525eb2f5fbef6522672fbfd2d60723418b9c15032966cd71edb1967a232  ./docs/images/apple-tv3-hardware.jpg
+0ec7e4ced9d90b24737b9a383b10d75c4db98d5142db40eb7fc716d449ee99af  ./docs/images/finder-afp-root-access.png
 a544ff8c3a994c98cb6b14e25beae42c1134bb40d016404abbaf247054faf60b  ./docs/images/n8n-legacy-editor.png
 96d97fc90e0ea1c35a20c522eeb787dca6c541c84df375d997a4f4e645b83c7b  ./examples/ai-provider-nodes-example.workflow.json
 2eaef1988772b46dec9affa66db311a2bbe4a0fef334e9af4cc3cd6755349b1a  ./examples/example-vacancies-to-github.workflow.json
