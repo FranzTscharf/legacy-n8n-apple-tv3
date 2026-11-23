@@ -1,5 +1,5 @@
 c05dc1082ee014607a5ad571bbaa923a8e7abe192461a4435ad4d1bdb824bf42  ./MANIFEST.md
-12f32b3d85f06775e0e8a9036d6bdb726af5ad1c61dad7520b38e028746a790a  ./README.md
+45223f632b9d913f9d713bcb8462e5db2c25b5db9a6f21e79145514d3cb12cc4  ./README.md
 a6f60cfcfd888fed58429669269f9addacb3a325dc1ea9a1d2ffa1d7230d5f52  ./SECURITY.md
 706a5a8db23b21daf6ae9a7586943208b8d74d03e5f90cc9a1f62b4fa6fb444a  ./THIRD-PARTY-NOTICES.md
 8065cb40e9692c93d0eb205e257158fcaa48931491802b085d2f928ed222621a  ./config/com.n8n.execution-prune.plist
@@ -18,6 +18,7 @@ c501de84b8ffcecf0b31c04c495f9be0d0a02d4dd0dc8806e74b9697b8efbde5  ./docs/BLOG-AR
 b91fc4005d73f99cbffea3f32ebcfc44a2a7adc43184c0a8e3d5ce9d7c019f3b  ./docs/DEVICE-README.md
 a9587de2eeb89c8122d5cb81f5af28dc1bedf2316edb193e7dd4e92f3811ac70  ./docs/PYTHON3-BUILD-NOTES.md
 5c5b6c3b3575904cd124d40c31bca94770d761870112e22bf2bce93be4b89851  ./docs/TAILSCALE-README.md
+a544ff8c3a994c98cb6b14e25beae42c1134bb40d016404abbaf247054faf60b  ./docs/images/n8n-legacy-editor.png
 96d97fc90e0ea1c35a20c522eeb787dca6c541c84df375d997a4f4e645b83c7b  ./examples/ai-provider-nodes-example.workflow.json
 2eaef1988772b46dec9affa66db311a2bbe4a0fef334e9af4cc3cd6755349b1a  ./examples/example-vacancies-to-github.workflow.json
 062d0521aecf014490543e03ee7461d9b9836f1b6cfe62ad7e8d520d3b5c6695  ./install-community-nodes.sh

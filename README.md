@@ -3,6 +3,10 @@
 This bundle reproduces the working n8n installation built for an Apple TV 3,2
 running jailbroken iPhone OS 8.4.4 (Darwin 14, 32-bit ARMv7).
 
+![n8n 0.110.0 workflow editor running on the legacy Apple TV 3](docs/images/n8n-legacy-editor.png)
+
+*The legacy n8n workflow editor running locally on the Apple TV 3.*
+
 It contains a ready-to-install runtime, not just instructions:
 
 - custom ARMv7/iOS 8 Node.js 12.19.0 binary;
