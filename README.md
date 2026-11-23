@@ -114,6 +114,29 @@ Use this binary bundle only when all of these are true:
 
 The installer rejects other hardware and 64-bit systems.
 
+## Default connection details
+
+A freshly jailbroken device normally uses these default connection details:
+
+| Setting | Default value |
+|---|---|
+| Hostname | `n8n.local` |
+| SSH user | `root` |
+| SSH password | `alpine` |
+
+The password `alpine` is a public default and provides full administrative
+access to the device. Change it immediately after the first SSH login and
+before installing n8n, enabling Finder access, or connecting Tailscale:
+
+```sh
+ssh -oHostKeyAlgorithms=+ssh-dss root@n8n.local
+passwd
+```
+
+Use the new password for all later SSH, SCP, and Finder connections. The
+hostname `n8n.local` requires working Bonjour/mDNS. If it does not resolve,
+use the Apple TV's local IP address instead.
+
 ## Installation
 
 1. Change the device's default root password before doing anything else:
