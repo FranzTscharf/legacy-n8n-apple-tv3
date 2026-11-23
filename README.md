@@ -35,6 +35,20 @@ test strings.
 
 ## Supported target
 
+### Verified Apple model
+
+| Model number printed on the case | Apple model | Hardware identifier | Support status |
+|---|---|---|---|
+| **A1469** | Apple TV (3rd generation, Rev A) | `AppleTV3,2` | **Verified and supported** |
+| A1427 | Apple TV (3rd generation) | `AppleTV3,1` | Not tested; the installer refuses this identifier |
+| Other Apple TV model numbers | Other generations/revisions | Varies | Not supported by this binary bundle |
+
+Apple lists A1427 and A1469 (Rev A) as the two third-generation model numbers
+in its [Apple TV identification guide](https://support.apple.com/en-us/101605).
+This project was built and verified specifically on **A1469 / `AppleTV3,2`**.
+Do not assume that a visually identical Apple TV or another model number is
+binary-compatible.
+
 Use this binary bundle only when all of these are true:
 
 - `uname -a` contains `AppleTV3,2`;
@@ -107,6 +121,34 @@ launchctl load /Library/LaunchDaemons/com.n8n.server.plist
 
 The default webhook base is `http://n8n.local:5678/`. Change it only if you
 install a separate trusted reverse proxy.
+
+## Remote access with Tailscale (experimental)
+
+The bundle includes the custom ARMv7 Tailscale client used on the verified
+Apple TV. After installation and authorization, approved devices in the same
+tailnet can reach n8n and SSH while away from the Apple TV's internal network:
+
+```sh
+./install-tailscale-experimental.sh --i-understand-experimental
+tailscale-device login
+tailscale-device status
+```
+
+Open the authorization URL printed by `tailscale-device login`, approve the
+Apple TV in Tailscale, and obtain its Tailscale IPv4 address from `status`.
+Remote clients connected to the same tailnet can then use:
+
+```text
+n8n: http://TAILSCALE_IP:5678/
+SSH: ssh -oHostKeyAlgorithms=+ssh-dss root@TAILSCALE_IP
+```
+
+This provides private tailnet access; it does not require publishing n8n or
+SSH directly to the public internet. The included Tailscale 1.22.2 ARMv7 port
+is an unsupported historical compatibility build, however. Use restrictive
+tailnet grants/ACLs, do not use it as an exit node, and prefer a current VPN
+gateway on supported hardware for security-sensitive deployments. Read
+[`docs/TAILSCALE-README.md`](docs/TAILSCALE-README.md) before enabling it.
 
 Important paths:
 
